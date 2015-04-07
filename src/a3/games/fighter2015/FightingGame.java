@@ -151,7 +151,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       this.runScript();
       
       initGameObjects();
- //     initTerrain();
+      initTerrain();
       createPlayers();
       initInput();
       try{ 
@@ -287,7 +287,7 @@ public class FightingGame extends BaseGame implements KeyListener{
 
  	 //  scene.addChild(parkingLot);
  	   
- 		 
+ 	/*	 
  		AbstractHeightMap heightmap = null; 
  
  
@@ -359,7 +359,7 @@ public class FightingGame extends BaseGame implements KeyListener{
  		scene.addChild(parkingLot2);
  		scene.addChild(parkingLot3);
  		scene.addChild(parkingLot4);
- 		 
+ 	*/	 
 		addGameWorldObject(scene); 
  		 
  	} 
@@ -839,7 +839,7 @@ public class FightingGame extends BaseGame implements KeyListener{
 	   myHeightMap.setHeightScale(0.1f);
 	   TerrainBlock hillTerr = createTerBlock(myHeightMap);
 	   TextureState groundState;
-	   Texture floorTexture = TextureManager.loadTexture2D("lot_floor.jpg");
+	   Texture floorTexture = TextureManager.loadTexture2D("src/a3/images/lot_floor.jpg");
 	   floorTexture.setApplyMode(sage.texture.Texture.ApplyMode.Replace);
 	//   groundState = (TextureState)
 	//		   display.getRenderer().createRenderState(RenderState.RenderStateType.Texture);

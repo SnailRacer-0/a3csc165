@@ -9,15 +9,17 @@ import graphicslib3D.Vector3D;
 import graphicslib3D.Matrix3D;
 import sage.scene.SceneNode;
 import sage.scene.shape.*;
-
+import sage.terrain.TerrainBlock;
 import a3.kmap165Engine.network.*;
 
 public class RightAction extends AbstractInputAction{ 
    private SceneNode s;
    private Matrix3D sM;
    private MyClient client;
-   public RightAction(SceneNode sn, MyClient thisClient){ 
+   private TerrainBlock terrain;
+   public RightAction(SceneNode sn, TerrainBlock t, MyClient thisClient){ 
       s = sn;
+      terrain = t;
       sM = s.getLocalTranslation();
       client = thisClient;
    }
@@ -25,6 +27,16 @@ public class RightAction extends AbstractInputAction{
       sM.translate(0.1f,0,0);
       s.setLocalTranslation(sM);
       s.updateWorldBound();
+      updateVerticalPosition();
   //    client.sendMoveMessage(s.getLocalTranslation());
+   }
+   private void updateVerticalPosition()
+   {
+	   Point3D avLoc = new Point3D(s.getLocalTranslation().getCol(3));
+	   float x = (float) avLoc.getX();
+	   float z = (float) avLoc.getZ();
+	   float tHeight = terrain.getHeight(x, z);
+	   float desiredHeight = tHeight + (float)terrain.getOrigin().getY() + 0.5f;
+	   s.getLocalTranslation().setElementAt(1, 3, desiredHeight);
    }
 }
