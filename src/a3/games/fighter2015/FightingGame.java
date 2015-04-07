@@ -129,6 +129,7 @@ public class FightingGame extends BaseGame implements KeyListener{
    private MyClient thisClient;
    
    private TerrainBlock parkingLot1, parkingLot2, parkingLot3, parkingLot4;
+   private TerrainBlock hillTerr;
    private Group rootNode;
    private SceneNode lineNodes; 
    private SkyBox skybox, skybox2; 
@@ -188,25 +189,25 @@ public class FightingGame extends BaseGame implements KeyListener{
       //c2c = new Camera3Pcontroller(camera2,p2,im,mouseName);
       //c2c = new Camera3Pcontroller(camera2,p2,im,gpName);
       //Controls for P1
-      ForwardAction mvForward = new ForwardAction(p1, thisClient);
+      ForwardAction mvForward = new ForwardAction(p1, hillTerr, thisClient);
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.S,
          mvForward,
          IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
          
-      BackwardAction mvBackward = new BackwardAction(p1, thisClient);
+      BackwardAction mvBackward = new BackwardAction(p1, hillTerr, thisClient);
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.W,
          mvBackward,
          IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
          
-      LeftAction mvLeft = new LeftAction(p1, thisClient);
+      LeftAction mvLeft = new LeftAction(p1, hillTerr, thisClient);
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.A,
          mvLeft,
          IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
          
-      RightAction mvRight = new RightAction(p1, thisClient);
+      RightAction mvRight = new RightAction(p1, hillTerr, thisClient);
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.D,
          mvRight,
@@ -837,7 +838,7 @@ public class FightingGame extends BaseGame implements KeyListener{
 	   
 	   HillHeightMap myHeightMap = new HillHeightMap(129, 2000, 5.0f, 20.0f, (byte)2, 12345);
 	   myHeightMap.setHeightScale(0.1f);
-	   TerrainBlock hillTerr = createTerBlock(myHeightMap);
+	   hillTerr = createTerBlock(myHeightMap);
 	   TextureState groundState;
 	   Texture floorTexture = TextureManager.loadTexture2D("src/a3/images/lot_floor.jpg");
 	   floorTexture.setApplyMode(sage.texture.Texture.ApplyMode.Replace);
