@@ -860,10 +860,12 @@ public class FightingGame extends BaseGame implements KeyListener{
 public void addNode(GhostAvatar avatar) {
 	// TODO Auto-generated method stub
 	System.out.println("i'm being called!");
+	this.addGameWorldObject(avatar);
 
 }
 public void removeNode(GhostAvatar avatar) {
 	// TODO Auto-generated method stub
 	System.out.println("removenode is being called!");
+	this.removeGameWorldObject(avatar);
 }
 }
