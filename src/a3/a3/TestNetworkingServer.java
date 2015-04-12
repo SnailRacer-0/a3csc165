@@ -6,7 +6,7 @@ import java.io.IOException;
 public class TestNetworkingServer { 
    public static void main(String[] args)throws IOException{
       try{ 
-         GameServerTCP testTCPServer = new GameServerTCP(80);
+         GameServerTCP testTCPServer = new GameServerTCP(8080);
       }
       catch (IOException e){ 
          e.printStackTrace();

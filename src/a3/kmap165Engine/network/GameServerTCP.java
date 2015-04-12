@@ -5,7 +5,8 @@ import java.net.InetAddress;
 import java.util.UUID;
 import sage.networking.server.GameConnectionServer;
 import sage.networking.server.IClientInfo; 
-import graphicslib3D.Matrix3D;
+//import graphicslib3D.Matrix3D;
+import graphicslib3D.Vector3D;
 
 public class GameServerTCP extends GameConnectionServer<UUID>{
    public GameServerTCP(int localPort) throws IOException{ 
@@ -38,13 +39,8 @@ public class GameServerTCP extends GameConnectionServer<UUID>{
          }
          if(messageTokens[0].compareTo("create") == 0){ // receive “create”
             // format: create,localid,x,y,z
-            //String[] messageTokens = message.split(",");
             UUID clientID = UUID.fromString(messageTokens[1]);
-            double[] values = {new Double(messageTokens[2]),new Double(messageTokens[3]),new Double(messageTokens[4]),new Double(messageTokens[5]),
-                                     new Double(messageTokens[6]),new Double(messageTokens[7]),new Double(messageTokens[8]),new Double(messageTokens[9]),
-                                     new Double(messageTokens[10]),new Double(messageTokens[11]),new Double(messageTokens[12]),new Double(messageTokens[13]),
-                                     new Double(messageTokens[14]),new Double(messageTokens[15]),new Double(messageTokens[16]),new Double(messageTokens[17])};
-            Matrix3D ghostPosition = new Matrix3D(values);
+            String[] ghostPosition = {messageTokens[2], messageTokens[3], messageTokens[4]};            
             System.out.println("create obtained");
             sendCreateMessages(clientID, ghostPosition);
             sendWantsDetailsMessages(clientID);
@@ -58,11 +54,10 @@ public class GameServerTCP extends GameConnectionServer<UUID>{
             sndDetailsMsg(clientID, remoteID, pos);
          }
          if(messageTokens[0].compareTo("move") == 0){ // receive “move”
-            // format: move, localid, amount
-            //look up sender name
+            // format: move,localid,x,y,z            //look up sender name
             UUID clientID = UUID.fromString(messageTokens[1]);
             String[] pos = {messageTokens[2], messageTokens[3], messageTokens[4]};
-            System.out.println("move obtained");
+            //System.out.println("move obtained");
             sendMoveMessages(clientID, pos);
          } 
       }
@@ -73,19 +68,21 @@ public class GameServerTCP extends GameConnectionServer<UUID>{
          String message = new String("join,");
          if(success) message += "success";
          else message += "failure";
-         System.out.println(message);
+         //System.out.println(message);
          sendPacket(message, clientID);
       }
       catch (IOException e) { 
          e.printStackTrace();
       } 
    }
-   public void sendCreateMessages(UUID clientID, Matrix3D position){ 
+   public void sendCreateMessages(UUID clientID, String[] position){ 
       // format: create, remoteId, x, y, z
       try{ 
          String message = new String("create," + clientID.toString());
-         message += "," + position.toString();
-         System.out.println(message);
+         message += "," + position[0];
+         message += "," + position[1];
+         message += "," + position[2];
+         //System.out.println(message);
          forwardPacketToAll(message, clientID);
       }
       catch (IOException e) { 
@@ -99,7 +96,7 @@ public class GameServerTCP extends GameConnectionServer<UUID>{
          message += "," + position[0];
          message += "," + position[1];
          message += "," + position[2];
-         System.out.println(message);
+         //System.out.println(message);
          sendPacket(message, remoteId);
       }
       catch (IOException e) { 
@@ -110,7 +107,7 @@ public class GameServerTCP extends GameConnectionServer<UUID>{
       // format: wsds, remoteID
       try{ 
          String message = new String("wsds," + clientID.toString());
-         System.out.println(message);
+         //System.out.println(message);
          forwardPacketToAll(message, clientID);
       }
       catch (IOException e) { 
@@ -123,9 +120,8 @@ public class GameServerTCP extends GameConnectionServer<UUID>{
          message += "," + position[0];
          message += "," + position[1];
          message += "," + position[2];
-         System.out.println(message);
+         //System.out.println(message);
          forwardPacketToAll(message, clientID);
-         System.out.println(message);
       }
       catch (IOException e) { 
          e.printStackTrace();
@@ -135,7 +131,7 @@ public class GameServerTCP extends GameConnectionServer<UUID>{
       // format: bye, remoteID
        try{ 
          String message = new String("bye," + clientID.toString());
-         System.out.println(message);
+         //System.out.println(message);
          sendPacketToAll(message);
       }
       catch (IOException e) { 

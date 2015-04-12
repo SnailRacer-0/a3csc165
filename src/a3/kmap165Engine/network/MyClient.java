@@ -55,56 +55,44 @@ public class MyClient extends GameConnectionClient{
       if (messageTokens[0].compareTo("dsfr") == 0 ){ // receive “details for”
          // format: create, remoteId, x,y,z or dsfr, remoteId, x,y,z
          UUID ghostID = UUID.fromString(messageTokens[1]);
-         //Vector3D ghostPosition = new Vector3D();
-         // extract ghost x,y,z, position from message, then:
-         double[] values = {new Double(messageTokens[2]),new Double(messageTokens[3]),new Double(messageTokens[4]),new Double(messageTokens[5]),
-                                     new Double(messageTokens[6]),new Double(messageTokens[7]),new Double(messageTokens[8]),new Double(messageTokens[9]),
-                                     new Double(messageTokens[10]),new Double(messageTokens[11]),new Double(messageTokens[12]),new Double(messageTokens[13]),
-                                     new Double(messageTokens[14]),new Double(messageTokens[15]),new Double(messageTokens[16]),new Double(messageTokens[17])};
-         Matrix3D ghostPosition = new Matrix3D(values);
+         
+         // extract ghost x,y,z, position from message
+         Vector3D ghostPosition = new Vector3D(Double.parseDouble(messageTokens[2]),Double.parseDouble(messageTokens[3]), Double.parseDouble(messageTokens[4]));
          System.out.println("dsfr obtained");
-         createGhostAvatar(ghostID, ghostPosition);
+         //System.out.println(ghostPosition.getX() +"," + ghostPosition.getY() +"," + ghostPosition.getZ());
+         createGhostAvatar(ghostID, ghostPosition, this);
       }
       if(messageTokens[0].compareTo("create") == 0){ // receive “create…”
          System.out.println("create obtained");
          // format: create, remoteId, x,y,z 
          UUID ghostID = UUID.fromString(messageTokens[1]);
-         //String[] ghostPosition = {messageTokens[2],messageTokens[3],messageTokens[4]};
-         //Vector3D ghostPosition = new Vector3D(new Double(messageTokens[2]), new Double(messageTokens[3]), new Double(messageTokens[4]));
-         // extract ghost x,y,z, position from message, then:
-         double[] values = {new Double(messageTokens[2]),new Double(messageTokens[3]),new Double(messageTokens[4]),new Double(messageTokens[5]),
-                                     new Double(messageTokens[6]),new Double(messageTokens[7]),new Double(messageTokens[8]),new Double(messageTokens[9]),
-                                     new Double(messageTokens[10]),new Double(messageTokens[11]),new Double(messageTokens[12]),new Double(messageTokens[13]),
-                                     new Double(messageTokens[14]),new Double(messageTokens[15]),new Double(messageTokens[16]),new Double(messageTokens[17])};
-         Matrix3D ghostPosition = new Matrix3D(values);
-         createGhostAvatar(ghostID, ghostPosition);
+
+         // extract ghost x,y,z, position from message:
+         Vector3D ghostPosition = new Vector3D( Double.parseDouble(messageTokens[2]), Double.parseDouble(messageTokens[3]),  Double.parseDouble(messageTokens[4]));
+         System.out.println(ghostPosition.getX() +"," + ghostPosition.getY() +"," + ghostPosition.getZ());
+         createGhostAvatar(ghostID, ghostPosition, this);
       }
       if(messageTokens[0].compareTo("wsds") == 0){ // receive “wants…”
          System.out.println("wsds obtained");
          // format: wsds, remoteID
          UUID remoteID = UUID.fromString(messageTokens[1]);
-         Vector3D pos = new Vector3D();
-         sendDetailsForMessage(remoteID, pos);
+         sendDetailsForMessage(remoteID, game.getPlayerPosition());
       }
       if(messageTokens[0].compareTo("move") == 0){ // receive “move”
          // format: move, remoteId, x,y,z 
          UUID remoteID = UUID.fromString(messageTokens[1]);
-         //Vector3D pos = new Vector3D(new Double(messageTokens[2]), new Double(messageTokens[3]), new Double(messageTokens[4]));
-         double[] values = {new Double(messageTokens[2]),new Double(messageTokens[3]),new Double(messageTokens[4]),new Double(messageTokens[5]),
-                                     new Double(messageTokens[6]),new Double(messageTokens[7]),new Double(messageTokens[8]),new Double(messageTokens[9]),
-                                     new Double(messageTokens[10]),new Double(messageTokens[11]),new Double(messageTokens[12]),new Double(messageTokens[13]),
-                                     new Double(messageTokens[14]),new Double(messageTokens[15]),new Double(messageTokens[16]),new Double(messageTokens[17])};
-         Matrix3D ghostPosition = new Matrix3D(values);
-         System.out.println("move obtained");
+         Vector3D ghostPosition = new Vector3D( Double.parseDouble(messageTokens[2]),  Double.parseDouble(messageTokens[3]),  Double.parseDouble(messageTokens[4]));
+         //System.out.println("move obtained");
+         //System.out.println(ghostPosition.getX() +"," + ghostPosition.getY() +"," + ghostPosition.getZ());
          updateGhostAvatar(remoteID, ghostPosition);
       }
    }
-   public void sendCreateMessage(Matrix3D pos){
+   public void sendCreateMessage(Vector3D pos){
       // format: (create, localId, x,y,z)
       try{
          String message = new String("create," + id.toString());
-         message += "," + pos.toString();
-         System.out.println(message);
+         message += "," + pos.getX()+"," + pos.getY() + "," + pos.getZ();;
+         //System.out.println(message);
          sendPacket(message);
       }
       catch (IOException e) { 
@@ -132,23 +120,37 @@ public class MyClient extends GameConnectionClient{
       }
    }
    public void sendDetailsForMessage(UUID remId, Vector3D pos){
+	      // format: (dsfr, remId, localID, x,y,z)
+	      try{
+	         String message = new String("dsfr," + remId.toString()+"," + id.toString());
+	         message += "," + pos.getX()+"," + pos.getY() + "," + pos.getZ();
+	         sendPacket(message);
+	         //System.out.println(message); 
+	      }
+	      catch (IOException e) { 
+	         e.printStackTrace(); 
+	      } 
+	   }
+   /*
+   public void sendDetailsForMessage(UUID remId, Vector3D pos){
       // format: (dsfr, remId, localID, x,y,z)
       try{
          String message = new String("dsfr," + remId.toString()+"," + id.toString());
          message += "," + pos.getX()+"," + pos.getY() + "," + pos.getZ();
          sendPacket(message);
-         System.out.println(message); 
+         //System.out.println(message); 
       }
       catch (IOException e) { 
          e.printStackTrace(); 
       } 
    }
-   public void sendMoveMessage(Matrix3D pos){
+   */
+   public void sendMoveMessage(Vector3D pos){
       // format: (move, localId, x,y,z)
       try{
          String message = new String("move," + id.toString());
-         message += "," + pos.toString();
-         System.out.println(message);
+         message += "," + pos.getX()+"," + pos.getY() + "," + pos.getZ();
+         //System.out.println(message);
          sendPacket(message);
       }
       catch (IOException e) { 
@@ -159,17 +161,23 @@ public class MyClient extends GameConnectionClient{
       for(GhostAvatar avatar : ghostAvatars){
          if(avatar.getGhostID() == ghostID){
             ghostAvatars.remove(avatar);
+            game.removeNode(avatar);
          }
       } 
    }
-   private void createGhostAvatar(UUID ghostID, Matrix3D ghostPosition){
-      ghostAvatars.add(new GhostAvatar(ghostID, ghostPosition));
+   private void createGhostAvatar(UUID ghostID, Vector3D ghostPosition, MyClient client){
+      ghostAvatars.add(new GhostAvatar(ghostID, ghostPosition, client));
+      System.out.println(ghostAvatars.lastElement());
+      game.addNode(ghostAvatars.lastElement());
    }
-   private void updateGhostAvatar(UUID ghostID, Matrix3D pos){
+   private void updateGhostAvatar(UUID ghostID, Vector3D pos){
       for(GhostAvatar avatar : ghostAvatars){
          if(avatar.getGhostID() == ghostID){
             avatar.setGhostPosition(pos);
          }
       }
-   }   
+   }
+   public Vector<GhostAvatar> getAvatars(){
+      return ghostAvatars;
+   } 
 }

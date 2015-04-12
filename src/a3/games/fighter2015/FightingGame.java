@@ -60,6 +60,8 @@ import java.net.InetAddress;
  
 
 
+
+
 import javax.imageio.ImageIO; 
  
 import javax.script.Invocable;
@@ -758,8 +760,12 @@ public class FightingGame extends BaseGame implements KeyListener{
       ArrayList<SceneNode> gameWorld = new ArrayList<SceneNode>();
       setGameWorld(gameWorld);
    }*/
-   public Matrix3D getPlayerPosition(){
-      return p1.getLocalTranslation();
+   public Vector3D getPlayerPosition()
+   {
+	  Vector3D position = p1.getLocalTranslation().getCol(3);
+	  
+      return position;
+ 
    }
    public boolean isConnected(){
       return isConnected();
@@ -851,4 +857,13 @@ public class FightingGame extends BaseGame implements KeyListener{
 	   hillTerr.setTexture(floorTexture);
 	   addGameWorldObject(hillTerr);
    }
+public void addNode(GhostAvatar avatar) {
+	// TODO Auto-generated method stub
+	System.out.println("i'm being called!");
+
+}
+public void removeNode(GhostAvatar avatar) {
+	// TODO Auto-generated method stub
+	System.out.println("removenode is being called!");
+}
 }
