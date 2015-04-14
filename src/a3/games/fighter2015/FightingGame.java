@@ -47,17 +47,25 @@ import sage.scene.state.TextureState;
 import java.nio.*;
 import java.util.ArrayList;
 import java.awt.image.BufferedImage; 
+import java.io.BufferedReader;
 import java.io.File; 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException; 
 import java.net.UnknownHostException;
 import java.net.URL; 
 
+import sage.model.loader.OBJLoader;
+import sage.model.loader.OBJMaterial;
 import sage.networking.IGameConnection.ProtocolType;
 
 import java.net.InetAddress;
  
+
+
+
+
 
 
 
@@ -113,6 +121,7 @@ public class FightingGame extends BaseGame implements KeyListener{
    private Teapot tpt;
    private Sphere sph;
    private Pyramid p1;
+   private TriMesh albertTriMesh;
 
    private Cube p2;
    private MyDiamond jade;
@@ -488,6 +497,23 @@ public class FightingGame extends BaseGame implements KeyListener{
       addGameWorldObject(plane);*/
       
       //add cube that will grow bigger later
+      
+      
+      // adding objectloader
+      try{
+      OBJLoader loader = new OBJLoader();
+      albertTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/albertTestMesh.obj");
+      Texture albertMeshT = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/albertUV.jpg");
+      albertTriMesh.setTexture(albertMeshT);
+      addGameWorldObject(albertTriMesh);
+      albertTriMesh.updateLocalBound();
+      albertTriMesh.updateGeometricState(0, true);
+   } catch (Exception e11)
+   {
+	   e11.printStackTrace();
+	   // java.lang.RuntimeException: sage.model.loader.OBJLoader: Mtllib file not found: 'materials\albertTestMesh.mtl'
+   }
+   
       
       chest = new TheChest();
       Matrix3D chestM = chest.getLocalScale();   
