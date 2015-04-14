@@ -508,10 +508,14 @@ public class FightingGame extends BaseGame implements KeyListener{
       addGameWorldObject(albertTriMesh);
       albertTriMesh.updateLocalBound();
       albertTriMesh.updateGeometricState(0, true);
+      Matrix3D albertT = albertTriMesh.getLocalTranslation();
+      albertT.translate(20, 0, 20);
+      albertTriMesh.setLocalTranslation(albertT);
+      albertTriMesh.updateWorldBound();
    } catch (Exception e11)
    {
 	   e11.printStackTrace();
-	   // java.lang.RuntimeException: sage.model.loader.OBJLoader: Mtllib file not found: 'materials\albertTestMesh.mtl'
+	  // nevermind. object is fixed.
    }
    
       
