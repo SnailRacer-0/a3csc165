@@ -392,8 +392,8 @@ public class FightingGame extends BaseGame implements KeyListener{
       
       
       camera1 = new JOGLCamera(renderer);
-      camera1.setPerspectiveFrustum(60, 2, 1, 1000);
-      camera1.setViewport(0.0, 1.0, 0.0, 0.45);
+      camera1.setPerspectiveFrustum(60, 1, 1, 1000);
+      camera1.setViewport(0.0, 1.0, 0.0, 1.0);
       
       /*p2 = new Cube("PLAYER2");
       Matrix3D p2MT = p2.getWorldTranslation();
