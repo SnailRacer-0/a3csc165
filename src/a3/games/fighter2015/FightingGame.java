@@ -121,7 +121,7 @@ public class FightingGame extends BaseGame implements KeyListener{
    private Teapot tpt;
    private Sphere sph;
    private Pyramid p1;
-   private TriMesh albertTriMesh;
+   private TriMesh albertTriMesh, fightingRingTriMesh;
 
    private Cube p2;
    private MyDiamond jade;
@@ -511,13 +511,27 @@ public class FightingGame extends BaseGame implements KeyListener{
       Matrix3D albertT = albertTriMesh.getLocalTranslation();
       albertT.translate(20, 0, 20);
       albertTriMesh.setLocalTranslation(albertT);
+      Matrix3D albertS = albertTriMesh.getLocalScale();
+      albertS.scale(.3, 0.3, .3);
+      albertTriMesh.setLocalScale(albertS);
       albertTriMesh.updateWorldBound();
+      
+
+	  fightingRingTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/fightingRing.obj");
+	  Texture fightingRingFilled = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/Texture/fightingRing_Pad_Filled.jpg");
+	  fightingRingTriMesh.setTexture(fightingRingFilled);
+	  addGameWorldObject(fightingRingTriMesh);
+	  Matrix3D fRT = fightingRingTriMesh.getLocalTranslation();
+	  fRT.translate(50, 0, 50);
+	  fightingRingTriMesh.setLocalTranslation(fRT);
+	  fightingRingTriMesh.updateLocalBound();
+	  fightingRingTriMesh.updateGeometricState(0,  true);
+	  fightingRingTriMesh.updateWorldBound();
+
    } catch (Exception e11)
-   {
+      {
 	   e11.printStackTrace();
-	  // nevermind. object is fixed.
-   }
-   
+      }    
       
       chest = new TheChest();
       Matrix3D chestM = chest.getLocalScale();   
