@@ -516,14 +516,19 @@ public class FightingGame extends BaseGame implements KeyListener{
       albertTriMesh.setLocalScale(albertS);
       albertTriMesh.updateWorldBound();
       
-
-	  fightingRingTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/fightingRing.obj");
+      // needs to fix the export for this object. doesn't look like objloader will take it. 
+   
+    //  fightingRingTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/fightingRing.obj");
+	  fightingRingTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/potBlend.obj");
 	  Texture fightingRingFilled = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/Texture/fightingRing_Pad_Filled.jpg");
 	  fightingRingTriMesh.setTexture(fightingRingFilled);
 	  addGameWorldObject(fightingRingTriMesh);
 	  Matrix3D fRT = fightingRingTriMesh.getLocalTranslation();
 	  fRT.translate(50, 0, 50);
 	  fightingRingTriMesh.setLocalTranslation(fRT);
+	  Matrix3D fRS = fightingRingTriMesh.getLocalScale();
+	  fRS.scale(3, 3, 3);
+	  fightingRingTriMesh.setLocalScale(fRS);
 	  fightingRingTriMesh.updateLocalBound();
 	  fightingRingTriMesh.updateGeometricState(0,  true);
 	  fightingRingTriMesh.updateWorldBound();
