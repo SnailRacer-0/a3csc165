@@ -177,6 +177,8 @@ public class FightingGame extends BaseGame implements KeyListener{
       initTerrain();
       createPlayers();
       initInput();
+      initPhysicsSystem();
+      createSagePhysicsWorld();
       try{ 
          thisClient = new MyClient(InetAddress.getByName(serverAddress), serverPort, serverProtocol, this); 
       }
@@ -628,9 +630,10 @@ public class FightingGame extends BaseGame implements KeyListener{
       
       Matrix3D mat;
       Vector3D translateVec;
+      Vector3D rotateVec;
       physicsEngine.update(20.0f);
       
-      for (SceneNode s : getGameWorld())
+      for (SceneNode s : getGameWorld()) // getting issue here
       {
     	  if (s.getPhysicsObject() != null)
     	  {
