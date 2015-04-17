@@ -11,6 +11,9 @@ import a3.kmap165Engine.network.*;
 import a3.kmap165Engine.network.ghost_avatar.*;
 import a3.kmap165Engine.scene_node_controller.*;
 import sage.app.BaseGame;
+import sage.physics.IPhysicsEngine;
+import sage.physics.IPhysicsObject;
+import sage.physics.PhysicsEngineFactory;
 import sage.renderer.*;
 import sage.scene.Group;
 import sage.display.*;
@@ -70,6 +73,10 @@ import java.net.InetAddress;
 
 
 
+
+
+
+
 import javax.imageio.ImageIO; 
  
 import javax.script.Invocable;
@@ -102,6 +109,7 @@ public class FightingGame extends BaseGame implements KeyListener{
    private ScriptEngine engine;
    private String sName = "src/a3/games/fighter2015/TestScriptColor.js";
    private File scriptFile;
+   private boolean running;
   
   
    // test
@@ -118,8 +126,9 @@ public class FightingGame extends BaseGame implements KeyListener{
    private IInputManager im;
    private IEventManager eventMgr;
    private Cylinder cyl;
+   
    private Teapot tpt;
-   private Sphere sph;
+   private Sphere sph, powerUp;
    private Pyramid p1;
    private TriMesh albertTriMesh, fightingRingTriMesh;
 
@@ -129,6 +138,8 @@ public class FightingGame extends BaseGame implements KeyListener{
    private boolean collidedWTeapot = false, collidedWPyramid = false, collidedWCylinder = false, 
       collidedWDiamond = false, isConnected = false;
    
+   private IPhysicsEngine physicsEngine;
+   private IPhysicsObject powerUpP;
    
  	private ICamera camera; 
 
@@ -178,6 +189,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       if (thisClient != null) { 
          thisClient.sendJoinMessage(); 
       }  
+      running = false;
    }
    public MyClient getClient(){
       return thisClient;
@@ -188,7 +200,9 @@ public class FightingGame extends BaseGame implements KeyListener{
       String Keyboard = im.getKeyboardName();
       String mouseName = im.getMouseName();
       
-
+      // TEST physics
+      IAction startPhys =  new StartPhysics();
+      im.associateAction(Keyboard, Component.Identifier.Key.PAGEDOWN, startPhys, IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
       
       // scriptTestInput
       UpdatePlayerColor updateColor = new UpdatePlayerColor();
@@ -517,7 +531,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       albertTriMesh.updateWorldBound();
       
       // needs to fix the export for this object. doesn't look like objloader will take it. 
-   
+      /*
     //  fightingRingTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/fightingRing.obj");
 	  fightingRingTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/potBlend.obj");
 	  Texture fightingRingFilled = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/Texture/fightingRing_Pad_Filled.jpg");
@@ -532,6 +546,7 @@ public class FightingGame extends BaseGame implements KeyListener{
 	  fightingRingTriMesh.updateLocalBound();
 	  fightingRingTriMesh.updateGeometricState(0,  true);
 	  fightingRingTriMesh.updateWorldBound();
+	  */
 
    } catch (Exception e11)
       {
@@ -545,6 +560,17 @@ public class FightingGame extends BaseGame implements KeyListener{
       addGameWorldObject(chest);
       eventMgr.addListener(chest, CrashEvent.class);
       
+      // creating a crappy power up
+
+      powerUp = new Sphere();
+      Matrix3D pM = powerUp.getLocalTranslation();
+      pM.translate(30, 0, 30);
+      powerUp.setLocalTranslation(pM);
+      addGameWorldObject(cyl);
+      powerUp.updateWorldBound();
+     
+      
+      
       //create some treasure
       cyl = new Cylinder();
       Matrix3D cylM = cyl.getLocalTranslation();
@@ -552,6 +578,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       cyl.setLocalTranslation(cylM);
       addGameWorldObject(cyl);
       cyl.updateWorldBound();
+      
       
       sph = new Sphere();
       Matrix3D sphM = sph.getLocalTranslation();
@@ -596,6 +623,22 @@ public class FightingGame extends BaseGame implements KeyListener{
       Matrix3D camTranslation = new Matrix3D();
       camTranslation.translate(camLoc.getX(), camLoc.getY(), camLoc.getZ());
       skybox.setLocalTranslation(camTranslation);
+      
+      
+      
+      Matrix3D mat;
+      Vector3D translateVec;
+      physicsEngine.update(20.0f);
+      
+      for (SceneNode s : getGameWorld())
+      {
+    	  if (s.getPhysicsObject() != null)
+    	  {
+    		  mat = new Matrix3D(s.getPhysicsObject().getTransform());
+    		  translateVec = mat.getCol(3);
+    		  s.getLocalTranslation().setCol(3, translateVec);
+    	  }
+      }
       
       //Update skybox2's location
       /*Point3D camLoc2 = c2c.getLocation();
@@ -917,4 +960,30 @@ public void removeNode(GhostAvatar avatar) {
 	System.out.println("removenode is being called!");
 	this.removeGameWorldObject(avatar);
 }
+protected void initPhysicsSystem()
+{
+	String engine = "sage.physics.JBullet.JBulletPhysicsEngine";
+	physicsEngine = PhysicsEngineFactory.createPhysicsEngine(engine);
+	
+	physicsEngine.initSystem();
+	float[] gravity = {0, -1f, 0};
+	physicsEngine.setGravity(gravity);
+}
+private void createSagePhysicsWorld()
+{
+	float mass = 1.0f;
+	powerUpP = physicsEngine.addSphereObject(physicsEngine.nextUID(), mass, powerUp.getWorldTransform().getValues(), 1.0f);
+	powerUpP.setBounciness(1.0f);
+	powerUp.setPhysicsObject(powerUpP);
+	
+}
+private class StartPhysics extends AbstractInputAction {
+
+	public void performAction(float time, Event e)
+	{
+		running = true;
+	}
+}
+
+
 }
