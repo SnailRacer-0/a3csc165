@@ -11,6 +11,9 @@ import a3.kmap165Engine.network.*;
 import a3.kmap165Engine.network.ghost_avatar.*;
 import a3.kmap165Engine.scene_node_controller.*;
 import sage.app.BaseGame;
+import sage.physics.IPhysicsEngine;
+import sage.physics.IPhysicsObject;
+import sage.physics.PhysicsEngineFactory;
 import sage.renderer.*;
 import sage.scene.Group;
 import sage.display.*;
@@ -62,6 +65,9 @@ import sage.networking.IGameConnection.ProtocolType;
 
 import java.net.InetAddress;
  
+
+
+
 
 
 
@@ -143,7 +149,13 @@ public class FightingGame extends BaseGame implements KeyListener{
    private TerrainBlock hillTerr;
    private Group rootNode;
    private SceneNode lineNodes; 
-   private SkyBox skybox, skybox2; 
+   private SkyBox skybox;
+   // physics
+   private boolean running;
+   private IPhysicsEngine physicsEngine;
+   private IPhysicsObject powerUpP;
+   private Sphere powerUp;
+   
    public FightingGame(String serverAddr, int sPort) throws IOException{ 
       super();
       this.serverAddress = serverAddr;
@@ -165,6 +177,8 @@ public class FightingGame extends BaseGame implements KeyListener{
       initGameObjects();
       initTerrain();
       createPlayers();
+      initPhysicsSystem();
+      createSagePhysicsWorld();
       initInput();
       try{ 
          thisClient = new MyClient(InetAddress.getByName(serverAddress), serverPort, serverProtocol, this); 
@@ -188,7 +202,9 @@ public class FightingGame extends BaseGame implements KeyListener{
       String Keyboard = im.getKeyboardName();
       String mouseName = im.getMouseName();
       
-
+      // physicsTest
+      IAction startAction = new StartAction();
+      im.associateAction(Keyboard, Component.Identifier.Key.Q, startAction, IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
       
       // scriptTestInput
       UpdatePlayerColor updateColor = new UpdatePlayerColor();
@@ -553,6 +569,16 @@ public class FightingGame extends BaseGame implements KeyListener{
       addGameWorldObject(cyl);
       cyl.updateWorldBound();
       
+      
+      // physics
+      powerUp = new Sphere();
+      Matrix3D puT = powerUp.getLocalTranslation();
+      puT.translate(30, 0, 40);
+      powerUp.setLocalTranslation(puT);
+      addGameWorldObject(powerUp);
+      powerUp.updateGeometricState(1.0f, true);
+      
+      
       sph = new Sphere();
       Matrix3D sphM = sph.getLocalTranslation();
       sphM.translate(0, 0, 40);
@@ -589,6 +615,22 @@ public class FightingGame extends BaseGame implements KeyListener{
    }
    public void update(float elapsedTimeMS){
 	  
+	   if (running)
+	   {
+		   Matrix3D mat;
+		   Vector3D translateVec;
+		   Vector3D rotateVec;
+		   physicsEngine.update(20.0f);
+		   for (SceneNode s : getGameWorld())
+		   {
+			   if (s.getPhysicsObject() != null)
+			   {
+				   mat = new Matrix3D(s.getPhysicsObject().getTransform());
+				   translateVec = mat.getCol(3);
+				   s.getLocalTranslation().setCol(3, translateVec);
+			   }
+		   }
+	   }
 	  
 	   
       //Update skybox's location
@@ -917,6 +959,30 @@ public void removeNode(GhostAvatar avatar) {
 	System.out.println("removenode is being called!");
 	this.removeGameWorldObject(avatar);
 }
+protected void initPhysicsSystem()
+{
+	String engine = "sage.physics.JBullet.JBulletPhysicsEngine";
+	physicsEngine = PhysicsEngineFactory.createPhysicsEngine(engine);
+	physicsEngine.initSystem();
+	float[] gravity = {0, -1f, 0};
+	physicsEngine.setGravity(gravity);
 }
 
 
+private void createSagePhysicsWorld()
+{
+	float mass = 1.0f;
+	powerUpP  = physicsEngine.addSphereObject(physicsEngine.nextUID(), mass, powerUp.getWorldTransform().getValues(), 1.0f);
+	powerUpP.setBounciness(1.0f);
+	powerUp.setPhysicsObject(powerUpP);
+}
+private class StartAction extends AbstractInputAction
+{
+	public void performAction(float time, Event ee)
+	{
+		running = true;
+	}
+}
+
+
+}
