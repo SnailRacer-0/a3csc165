@@ -27,7 +27,11 @@ public class BackwardAction extends AbstractInputAction{
       s.setLocalTranslation(sM);
       s.updateWorldBound();
       updateVerticalPosition();
+<<<<<<< HEAD
       //client.sendMoveMessage(s.getLocalTranslation().getCol(3));
+=======
+  //    client.sendMoveMessage(s.getLocalTranslation());
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
    }
    private void updateVerticalPosition()
    {

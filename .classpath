@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/javagaming/graphicslib3D/graphicslib3D.jar"/>
 	<classpathentry kind="lib" path="C:/javagaming/jbullet/jbullet.jar"/>
 	<classpathentry kind="lib" path="C:/javagaming/jinput/jinput.jar"/>
@@ -13,5 +14,72 @@
 	<classpathentry kind="lib" path="C:/javagaming/ode4j/core-0.3.0.jar"/>
 	<classpathentry kind="lib" path="C:/javagaming/sage/sage.jar"/>
 	<classpathentry kind="lib" path="C:/javagaming/vecmath/vecmath.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/graphicslib3D/graphicslib3D.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jbullet/jbullet.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jinput/jinput.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-android.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-android-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-linux-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-solaris-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-solaris-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-android.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-android-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-linux-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-solaris-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-solaris-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-test.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/joal-test-android.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-android-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-linux-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-solaris-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-solaris-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jocl-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-android.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-mobile.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-android-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-linux-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-solaris-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-solaris-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-all-noawt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-test.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/jogl-test-android.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/luaj/luaj-jme-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/luaj/luaj-jse-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/luaj/luaj-sources-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/ode4j/core-0.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/sage/sage.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/sage/sagetest.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/vecmath/vecmath.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mackk/javagaming/jogl/gluegen-natives-windows-amd64.jar"/>
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -10,7 +10,11 @@ public class Starter{
       try{ 
             InetAddress theAddr = InetAddress.getLocalHost();
             String ipAddr = theAddr.getHostAddress(); 
+<<<<<<< HEAD
             FightingGame fg = new FightingGame(ipAddr, 8065);
+=======
+            FightingGame fg = new FightingGame(ipAddr, 8080);
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
             fg.start();
          }
          catch (IOException e){ 

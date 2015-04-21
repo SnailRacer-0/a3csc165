@@ -64,6 +64,20 @@ import sage.model.loader.OBJMaterial;
 import sage.networking.IGameConnection.ProtocolType;
 
 import java.net.InetAddress;
+<<<<<<< HEAD
+=======
+ 
+
+
+
+
+
+
+
+
+
+
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
 
 import javax.imageio.ImageIO; 
  
@@ -115,7 +129,12 @@ public class FightingGame extends BaseGame implements KeyListener{
    private Cylinder cyl;
    private Teapot tpt;
    private Sphere sph;
+<<<<<<< HEAD
    private TriMesh playerOne, fightingRingTriMesh;
+=======
+   private Pyramid p1;
+   private TriMesh albertTriMesh, fightingRingTriMesh;
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
 
    private Cube p2;
    private MyDiamond jade;
@@ -143,7 +162,11 @@ public class FightingGame extends BaseGame implements KeyListener{
    private IPhysicsEngine physicsEngine;
    private IPhysicsObject powerUpP;
    private Sphere powerUp;
+<<<<<<< HEAD
    private OBJLoader objectLoader;
+=======
+   
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
    public FightingGame(String serverAddr, int sPort) throws IOException{ 
       super();
       this.serverAddress = serverAddr;
@@ -161,7 +184,11 @@ public class FightingGame extends BaseGame implements KeyListener{
       engine = factory.getEngineByName("js");
       scriptFile = new File(sName);
       this.runScript();
+<<<<<<< HEAD
       objectLoader = new OBJLoader();
+=======
+      
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
       initGameObjects();
       initTerrain();
       createPlayers();
@@ -200,29 +227,49 @@ public class FightingGame extends BaseGame implements KeyListener{
     		  IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
       
       
+<<<<<<< HEAD
       c1c = new Camera3Pcontroller(camera1,playerOne,im,mouseName);
       //c2c = new Camera3Pcontroller(camera2,p2,im,mouseName);
       //c2c = new Camera3Pcontroller(camera2,p2,im,gpName);
       //Controls for P1
       ForwardAction mvForward = new ForwardAction(playerOne, hillTerr, thisClient);
+=======
+      c1c = new Camera3Pcontroller(camera1,p1,im,mouseName);
+      //c2c = new Camera3Pcontroller(camera2,p2,im,mouseName);
+      //c2c = new Camera3Pcontroller(camera2,p2,im,gpName);
+      //Controls for P1
+      ForwardAction mvForward = new ForwardAction(p1, hillTerr, thisClient);
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.S,
          mvForward,
          IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
          
+<<<<<<< HEAD
       BackwardAction mvBackward = new BackwardAction(playerOne, hillTerr, thisClient);
+=======
+      BackwardAction mvBackward = new BackwardAction(p1, hillTerr, thisClient);
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.W,
          mvBackward,
          IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
          
+<<<<<<< HEAD
       LeftAction mvLeft = new LeftAction(playerOne, hillTerr, thisClient);
+=======
+      LeftAction mvLeft = new LeftAction(p1, hillTerr, thisClient);
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.A,
          mvLeft,
          IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
          
+<<<<<<< HEAD
       RightAction mvRight = new RightAction(playerOne, hillTerr, thisClient);
+=======
+      RightAction mvRight = new RightAction(p1, hillTerr, thisClient);
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.D,
          mvRight,
@@ -380,6 +427,7 @@ public class FightingGame extends BaseGame implements KeyListener{
  		 
  	} 
 
+<<<<<<< HEAD
    private void createPlayers(){
 	   try{
 		      playerOne = objectLoader.loadModel("src/a3/kmap165Engine/external_models/albertTestMesh.obj");
@@ -406,6 +454,22 @@ public class FightingGame extends BaseGame implements KeyListener{
 		      {
 			   e11.printStackTrace();
       }  		
+=======
+   private void createPlayers(){ 
+      p1 = new Pyramid("PLAYER1");
+      Matrix3D p1MT = p1.getWorldTranslation();
+      Matrix3D p1MR = p1.getWorldRotation();
+      
+      p1MT.translate(0, 1, 50);
+      p1.setLocalTranslation(p1MT);
+      
+      p1MR.rotate(180, new Vector3D(0, 1, 0));
+      p1.setLocalRotation(p1MR);
+      
+      p1.updateWorldBound();
+      addGameWorldObject(p1);
+      
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
       
       camera1 = new JOGLCamera(renderer);
       camera1.setPerspectiveFrustum(60, 1, 1, 1000);
@@ -517,9 +581,44 @@ public class FightingGame extends BaseGame implements KeyListener{
       
       // adding objectloader
       try{
+<<<<<<< HEAD
  
       
       createRing();
+=======
+      OBJLoader loader = new OBJLoader();
+      albertTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/albertTestMesh.obj");
+      Texture albertMeshT = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/albertUV.jpg");
+      albertTriMesh.setTexture(albertMeshT);
+      addGameWorldObject(albertTriMesh);
+      albertTriMesh.updateLocalBound();
+      albertTriMesh.updateGeometricState(0, true);
+      Matrix3D albertT = albertTriMesh.getLocalTranslation();
+      albertT.translate(20, 0, 20);
+      albertTriMesh.setLocalTranslation(albertT);
+      Matrix3D albertS = albertTriMesh.getLocalScale();
+      albertS.scale(.3, 0.3, .3);
+      albertTriMesh.setLocalScale(albertS);
+      albertTriMesh.updateWorldBound();
+      
+      // needs to fix the export for this object. doesn't look like objloader will take it. 
+   
+    //  fightingRingTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/fightingRing.obj");
+	  fightingRingTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/potBlend.obj");
+	  Texture fightingRingFilled = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/Texture/fightingRing_Pad_Filled.jpg");
+	  fightingRingTriMesh.setTexture(fightingRingFilled);
+	  addGameWorldObject(fightingRingTriMesh);
+	  Matrix3D fRT = fightingRingTriMesh.getLocalTranslation();
+	  fRT.translate(50, 0, 50);
+	  fightingRingTriMesh.setLocalTranslation(fRT);
+	  Matrix3D fRS = fightingRingTriMesh.getLocalScale();
+	  fRS.scale(3, 3, 3);
+	  fightingRingTriMesh.setLocalScale(fRS);
+	  fightingRingTriMesh.updateLocalBound();
+	  fightingRingTriMesh.updateGeometricState(0,  true);
+	  fightingRingTriMesh.updateWorldBound();
+
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
    } catch (Exception e11)
       {
 	   e11.printStackTrace();
@@ -617,7 +716,11 @@ public class FightingGame extends BaseGame implements KeyListener{
       skybox2.setLocalTranslation(camTranslation2);*/
      // parkingLot.setLocalTranslation(camTranslation);
       //Player 1's crash events 
+<<<<<<< HEAD
       if (tpt.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWTeapot == false){
+=======
+      if (tpt.getWorldBound().intersects(p1.getWorldBound()) && collidedWTeapot == false){
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
          collidedWTeapot = true;
          numCrashes++;
          score1 += 100;
@@ -625,7 +728,11 @@ public class FightingGame extends BaseGame implements KeyListener{
          removeGameWorldObject(tpt);
          eventMgr.triggerEvent(newCrash);
       }
+<<<<<<< HEAD
       if (cyl.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWCylinder == false){
+=======
+      if (cyl.getWorldBound().intersects(p1.getWorldBound()) && collidedWCylinder == false){
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
          collidedWCylinder = true; 
          numCrashes++;
          score1 += 500;
@@ -633,7 +740,11 @@ public class FightingGame extends BaseGame implements KeyListener{
          removeGameWorldObject(cyl);
          eventMgr.triggerEvent(newCrash);
       }
+<<<<<<< HEAD
       if (sph.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWPyramid == false){
+=======
+      if (sph.getWorldBound().intersects(p1.getWorldBound()) && collidedWPyramid == false){
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
          collidedWPyramid = true;
          numCrashes++;
          score1 += 250;
@@ -641,7 +752,11 @@ public class FightingGame extends BaseGame implements KeyListener{
          removeGameWorldObject(sph);
          eventMgr.triggerEvent(newCrash);
       }
+<<<<<<< HEAD
       if (jade.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWDiamond == false){
+=======
+      if (jade.getWorldBound().intersects(p1.getWorldBound()) && collidedWDiamond == false){
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
          collidedWDiamond = true; 
          numCrashes++;
          score1 += 1000;
@@ -768,6 +883,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       
       addGameWorldObject(group1);
    }
+<<<<<<< HEAD
    private void createRing(){
 	    //Creates the base of the fighting ring and uv-wraps it to a texure.
 	     TriMesh fightingRing = objectLoader.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/fightingRing_Pad.obj");
@@ -902,6 +1018,8 @@ public class FightingGame extends BaseGame implements KeyListener{
 	     
 	      addGameWorldObject(ringGroup1);
 	   }
+=======
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
    protected void render(){
       renderer.setCamera(camera1);
       super.render();
@@ -958,7 +1076,11 @@ public class FightingGame extends BaseGame implements KeyListener{
    }*/
    public Vector3D getPlayerPosition()
    {
+<<<<<<< HEAD
 	  Vector3D position = playerOne.getLocalTranslation().getCol(3);
+=======
+	  Vector3D position = p1.getLocalTranslation().getCol(3);
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
 	  
       return position;
  

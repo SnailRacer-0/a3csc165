@@ -27,7 +27,11 @@ public class Camera3Pcontroller{
       this.cam = cam;
       this.target = target;
       worldUpVec = new Vector3D(0,1,0);
+<<<<<<< HEAD
       cameraDistanceFromTarget = 50.0f;
+=======
+      cameraDistanceFromTarget = 10.0f;
+>>>>>>> a99e1bde9c96765ba62941d5f0e6db547d306078
       // start from FRONT OF and ABOVE the target
       cameraAzimuth = 0; 
       cameraElevation = 20.0f; // elevation is in degrees
