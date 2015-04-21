@@ -917,8 +917,8 @@ public class FightingGame extends BaseGame implements KeyListener{
    
    private TerrainBlock createTerBlock(AbstractHeightMap heightmap)
    {
-	   float heightscale = .005f;
-	   Vector3D terrainScale = new Vector3D(100, heightscale, 100);
+	   float heightscale = .05f;
+	   Vector3D terrainScale = new Vector3D(1, heightscale, 1);
 	   
 	   int terrainsize = heightmap.getSize();
 	   
@@ -933,19 +933,19 @@ public class FightingGame extends BaseGame implements KeyListener{
    {
 	   
 	   
+	   ImageBasedHeightMap myHeightMap = new ImageBasedHeightMap("src/a3/images/mountains512.jpg");
+	   /*
 	   HillHeightMap myHeightMap = new HillHeightMap(129, 2000, 5.0f, 20.0f, (byte)2, 12345);
 	   myHeightMap.setHeightScale(0.1f);
+	   
+	   */
 	   hillTerr = createTerBlock(myHeightMap);
 	   TextureState groundState;
 	   Texture floorTexture = TextureManager.loadTexture2D("src/a3/images/lot_floor.jpg");
 	   floorTexture.setApplyMode(sage.texture.Texture.ApplyMode.Replace);
-	//   groundState = (TextureState)
-	//		   display.getRenderer().createRenderState(RenderState.RenderStateType.Texture);
-	//   groundState.setTexture(floorTexture, 0);
-	//   groundState.setEnabled(true);
-	   
-	 //  hillTerr.setRenderState(groundState);
 	   hillTerr.setTexture(floorTexture);
+	   
+	   
 	   addGameWorldObject(hillTerr);
    }
 public void addNode(GhostAvatar avatar) {
