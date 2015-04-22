@@ -144,7 +144,7 @@ public class FightingGame extends BaseGame implements KeyListener{
    // physics
    private boolean running;
    private IPhysicsEngine physicsEngine;
-   private IPhysicsObject powerUpP;
+   private IPhysicsObject powerUpP, terrainP;
    private Sphere powerUp;
    private OBJLoader objectLoader;
 
@@ -310,7 +310,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       
  	   scene.addChild(skybox);
       
- 
+
 		addGameWorldObject(scene); 
  		 
  	} 
@@ -472,7 +472,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       // physics
       powerUp = new Sphere();
       Matrix3D puT = powerUp.getLocalTranslation();
-      puT.translate(30, 20, 40);
+      puT.translate(30, 50, 40);
       powerUp.setLocalTranslation(puT);
       addGameWorldObject(powerUp);
       powerUp.updateGeometricState(1.0f, true);
@@ -956,8 +956,8 @@ public class FightingGame extends BaseGame implements KeyListener{
    
    private TerrainBlock createTerBlock(AbstractHeightMap heightmap)
    {
-	   float heightscale = .05f;
-	   Vector3D terrainScale = new Vector3D(1, heightscale, 1);
+	   float heightscale = .02f;
+	   Vector3D terrainScale = new Vector3D(.5, heightscale, .5);
 	   
 	   int terrainsize = heightmap.getSize();
 	   
@@ -1014,6 +1014,12 @@ private void createSagePhysicsWorld()
 	powerUpP  = physicsEngine.addSphereObject(physicsEngine.nextUID(), mass, powerUp.getWorldTransform().getValues(), 1.0f);
 	powerUpP.setBounciness(1.0f);
 	powerUp.setPhysicsObject(powerUpP);
+	
+	// terrain
+	float up[] = {-.05f, .95f, 0};
+	terrainP = physicsEngine.addStaticPlaneObject(physicsEngine.nextUID(), hillTerr.getWorldTransform().getValues(), up, 0.0f);
+	terrainP.setBounciness(1.0f);
+	hillTerr.setPhysicsObject(terrainP);
 }
 private class StartAction extends AbstractInputAction
 {
