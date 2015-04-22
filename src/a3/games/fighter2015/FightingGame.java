@@ -549,7 +549,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       // physics
       powerUp = new Sphere();
       Matrix3D puT = powerUp.getLocalTranslation();
-      puT.translate(30, 0, 40);
+      puT.translate(30, 20, 40);
       powerUp.setLocalTranslation(puT);
       addGameWorldObject(powerUp);
       powerUp.updateGeometricState(1.0f, true);
