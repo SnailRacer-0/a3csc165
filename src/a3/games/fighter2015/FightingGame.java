@@ -22,6 +22,7 @@ import sage.input.*;
 import sage.scene.SceneNode;
 import sage.scene.shape.*;
 import sage.scene.HUDString;
+import sage.scene.Model3DTriMesh;
 import sage.scene.TriMesh;
 import net.java.games.input.*;
 import sage.input.action.AbstractInputAction;
@@ -61,9 +62,12 @@ import java.net.URL;
 
 import sage.model.loader.OBJLoader;
 import sage.model.loader.OBJMaterial;
+import sage.model.loader.ogreXML.OgreXMLParser;
 import sage.networking.IGameConnection.ProtocolType;
 
 import java.net.InetAddress;
+
+
 
 
 import javax.imageio.ImageIO; 
@@ -147,6 +151,9 @@ public class FightingGame extends BaseGame implements KeyListener{
    private IPhysicsObject powerUpP, terrainP;
    private Sphere powerUp;
    private OBJLoader objectLoader;
+   
+   private Group model;
+   private Model3DTriMesh myObject;
 
    public FightingGame(String serverAddr, int sPort) throws IOException{ 
       super();
@@ -170,6 +177,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       initGameObjects();
       initTerrain();
       createPlayers();
+      initOgre();
       initPhysicsSystem();
       createSagePhysicsWorld();
       initInput();
@@ -314,7 +322,25 @@ public class FightingGame extends BaseGame implements KeyListener{
 		addGameWorldObject(scene); 
  		 
  	} 
-
+   public void initOgre()
+   {
+	   OgreXMLParser loader = new OgreXMLParser();
+	   try 
+	   {
+		   model = loader.loadModel("playerOne.mesh", "playerOne.material", "playerOne.scene");
+		   model.updateGeometricState(0, true);
+		   java.util.Iterator<SceneNode> modelIterator = model.iterator();
+		   myObject = (Model3DTriMesh) modelIterator.next();
+		   
+		   addGameWorldObject(myObject);
+		   myObject.scale(100, 100, 100);
+	   }
+	   catch (Exception eea)
+	   {
+		   eea.printStackTrace();
+	   }
+	   
+   }
    private void createPlayers(){
 	   try{
 		      playerOne = objectLoader.loadModel("src/a3/kmap165Engine/external_models/albertTestMesh.obj");
