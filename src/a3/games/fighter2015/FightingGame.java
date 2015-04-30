@@ -327,7 +327,7 @@ public class FightingGame extends BaseGame implements KeyListener{
 	   OgreXMLParser loader = new OgreXMLParser();
 	   try 
 	   {
-		   model = loader.loadModel("playerOne.mesh", "playerOne.material", "playerOne.scene");
+		   model = loader.loadModel("src/a3/kmap165Engine/external_models/test/OgreCube.001.mesh", "src/a3/kmap165Engine/external_models/test/Material.001", "src/a3/kmap165Engine/external_models/test/playerTest.scene");
 		   model.updateGeometricState(0, true);
 		   java.util.Iterator<SceneNode> modelIterator = model.iterator();
 		   myObject = (Model3DTriMesh) modelIterator.next();

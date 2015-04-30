@@ -138,4 +138,8 @@ public class GameServerTCP extends GameConnectionServer<UUID>{
          e.printStackTrace();
       } 
    }
+public void sendNPCinfo() {
+	// TODO Auto-generated method stub
+	
+}
 }
