@@ -38,5 +38,6 @@ public class ForwardAction extends AbstractInputAction{
 	   float tHeight = terrain.getHeight(x, z);
 	   float desiredHeight = tHeight + (float)terrain.getOrigin().getY() + 0.5f;
 	   s.getLocalTranslation().setElementAt(1, 3, desiredHeight);
+
    }
 }

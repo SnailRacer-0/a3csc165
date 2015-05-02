@@ -4,16 +4,12 @@ import java.util.UUID;
 import graphicslib3D.Vector3D;
 import graphicslib3D.Matrix3D;
 import sage.scene.TriMesh;
-import sage.scene.shape.Pyramid;
-import sage.scene.shape.Teapot;
-import a3.kmap165Engine.network.*;
 
 import a3.kmap165Engine.network.*;
 
 import sage.model.loader.OBJLoader;
 
-
-public class GhostAvatar extends Teapot {
+public class GhostAvatar extends TriMesh{
    private UUID ghostID;
    private Vector3D ghostPosition;
    private Matrix3D ghostMatrix;
@@ -22,13 +18,30 @@ public class GhostAvatar extends Teapot {
    private TriMesh theMesh;
    private OBJLoader objectLoader = new OBJLoader();
    public GhostAvatar(UUID ID, Vector3D position, MyClient client){
+	  theMesh = objectLoader.loadModel("src/a3/kmap165Engine/external_models/albertTestMesh.obj");
+	  
+	  /*Matrix3D theMeshT = theMesh.getLocalTranslation();
+      theMeshT.translate(70, 0, 50);
+      setLocalTranslation(theMeshT);*/
+      
+	  Matrix3D theMeshS = theMesh.getLocalScale();
+      theMeshS.scale(.3, 0.3, .3);
+      setLocalScale(theMeshS);
+      
+	  this.setVertexBuffer(theMesh.getVertexBuffer());
+      this.setIndexBuffer(theMesh.getIndexBuffer()); 
       ghostID = ID;
       ghostPosition = position;
       theClient = client;
+      
       ghostMatrix = this.getLocalTranslation();
-      ghostMatrix.setCol(3, ghostPosition);
+      ghostMatrix.translate(ghostPosition.getX(), ghostPosition.getY(), ghostPosition.getZ());
+      
       setLocalTranslation(ghostMatrix);
+      
       updateWorldBound();
+      updateLocalBound();
+      updateGeometricState(0, true);
    }
    public boolean isCreated(){
       return created;
@@ -49,7 +62,6 @@ public class GhostAvatar extends Teapot {
    public void setGhostPosition(Vector3D gV){
       //ghostMatrix.setCol(3, gV);
 	   ghostMatrix.translate(gV.getX(), gV.getY(), gV.getZ()); 
-
       setLocalTranslation(ghostMatrix);
       updateWorldBound();
       if(theClient != null) theClient.sendMoveMessage(this.getLocalTranslation().getCol(3));

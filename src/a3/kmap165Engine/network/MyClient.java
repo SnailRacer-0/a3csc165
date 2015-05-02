@@ -134,7 +134,6 @@ public class MyClient extends GameConnectionClient{
    /*
    public void sendDetailsForMessage(UUID remId, Vector3D pos){
       // format: (dsfr, remId, localID, x,y,z)dd
-
       try{
          String message = new String("dsfr," + remId.toString()+"," + id.toString());
          message += "," + pos.getX()+"," + pos.getY() + "," + pos.getZ();
@@ -169,7 +168,6 @@ public class MyClient extends GameConnectionClient{
    private void createGhostAvatar(UUID ghostID, Vector3D ghostPosition, MyClient client){
        Vector3D pos = new Vector3D(70.0, 0, 50.0);
 	   ghostAvatars.add(new GhostAvatar(ghostID, pos, client));
-
       System.out.println(ghostAvatars.lastElement());
       game.addNode(ghostAvatars.lastElement());
    }

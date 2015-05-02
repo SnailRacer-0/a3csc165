@@ -65,7 +65,6 @@ import sage.networking.IGameConnection.ProtocolType;
 
 import java.net.InetAddress;
 
-
 import javax.imageio.ImageIO; 
  
 import javax.script.Invocable;
@@ -117,8 +116,6 @@ public class FightingGame extends BaseGame implements KeyListener{
    private Teapot tpt;
    private Sphere sph;
    private TriMesh playerOne, fightingRingTriMesh;
-   private Pyramid p1;
-
 
    private Cube p2;
    private MyDiamond jade;
@@ -147,7 +144,6 @@ public class FightingGame extends BaseGame implements KeyListener{
    private IPhysicsObject powerUpP, terrainP;
    private Sphere powerUp;
    private OBJLoader objectLoader;
-
    public FightingGame(String serverAddr, int sPort) throws IOException{ 
       super();
       this.serverAddress = serverAddr;
@@ -166,7 +162,6 @@ public class FightingGame extends BaseGame implements KeyListener{
       scriptFile = new File(sName);
       this.runScript();
       objectLoader = new OBJLoader();
-
       initGameObjects();
       initTerrain();
       createPlayers();
@@ -210,31 +205,24 @@ public class FightingGame extends BaseGame implements KeyListener{
       //c2c = new Camera3Pcontroller(camera2,p2,im,gpName);
       //Controls for P1
       ForwardAction mvForward = new ForwardAction(playerOne, hillTerr, thisClient);
-      //c2c = new Camera3Pcontroller(camera2,p2,im,mouseName);
-      //c2c = new Camera3Pcontroller(camera2,p2,im,gpName);
-      //Controls for P1
-
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.S,
          mvForward,
          IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
          
       BackwardAction mvBackward = new BackwardAction(playerOne, hillTerr, thisClient);
-
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.W,
          mvBackward,
          IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
          
       LeftAction mvLeft = new LeftAction(playerOne, hillTerr, thisClient);
-
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.A,
          mvLeft,
          IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-
+         
       RightAction mvRight = new RightAction(playerOne, hillTerr, thisClient);
-
       im.associateAction(Keyboard,
          net.java.games.input.Component.Identifier.Key.D,
          mvRight,
@@ -310,7 +298,84 @@ public class FightingGame extends BaseGame implements KeyListener{
       
  	   scene.addChild(skybox);
       
+      //skybox2 = skybox; 
+      //scene.addChild(skybox2); 
 
+ 	 //  scene.addChild(parkingLot);
+ 	   
+ 	/*	 
+ 		AbstractHeightMap heightmap = null; 
+ 
+ 
+ 		heightmap = new ImageBasedHeightMap(testMountain.getImage()); 
+ 		heightmap.load(); 
+ 
+ 
+ 		Vector3D scaleFactor = new Vector3D(new Point3D(1, 1, 1)); 
+ 		 
+ 		try 
+ 		{ 
+ 		parkingLot1 = new TerrainBlock("tblock", 512, scaleFactor, heightmap.getHeightData(), new Point3D( 0, 0, 0));
+ 		parkingLot1.setTexture(downTex);
+ 		Matrix3D p1LotT = parkingLot1.getLocalTranslation();
+ 		p1LotT.translate(0.0f, -0.5f, 0.0f);
+ 		parkingLot1.setLocalTranslation(p1LotT);
+ 		Matrix3D p1Scale = parkingLot1.getLocalScale();
+ 		p1Scale.scale(10f, 10f, 0);
+ 		parkingLot1.setLocalScale(p1Scale);
+ 		Matrix3D p1Rot = new Matrix3D();
+ 		p1Rot.rotateX(-90);
+ 		parkingLot1.setLocalRotation(p1Rot);
+ 		
+ 		
+ 		parkingLot2 = new TerrainBlock("tblock2", 512, scaleFactor, heightmap.getHeightData(), new Point3D( 0, 0, 0));
+ 		parkingLot2.setTexture(upTex);
+ 		Matrix3D p2LotT = parkingLot2.getLocalTranslation();
+ 		p2LotT.translate(0.0f, -0.5f, 0.0f);
+ 		parkingLot2.setLocalTranslation(p2LotT);
+ 		Matrix3D p2Scale = parkingLot2.getLocalScale();
+ 		p2Scale.scale(10f, 10f, 0);
+ 		parkingLot2.setLocalScale(p2Scale);
+ 		Matrix3D p2Rot = new Matrix3D();
+ 		p2Rot.rotateZ(90);
+ 		p2Rot.rotateY(90);
+ 		parkingLot2.setLocalRotation(p2Rot);
+ 		
+ 		parkingLot3 = new TerrainBlock("tblock3", 512, scaleFactor, heightmap.getHeightData(), new Point3D( 0, 0, 0));
+ 		parkingLot3.setTexture(eastTex);
+ 		Matrix3D p3LotT = parkingLot3.getLocalTranslation();
+ 		p3LotT.translate(0.0f, -0.5f, 0.0f);
+ 		parkingLot3.setLocalTranslation(p3LotT);
+ 		Matrix3D p3Scale = parkingLot3.getLocalScale();
+ 		p3Scale.scale(100f, 100f, 0);
+ 		parkingLot3.setLocalScale(p3Scale);
+ 		Matrix3D p3Rot = new Matrix3D();
+ 		p3Rot.rotateX(90);
+ 		parkingLot3.setLocalRotation(p3Rot);
+ 		
+ 		parkingLot4 = new TerrainBlock("tblock4", 512, scaleFactor, heightmap.getHeightData(), new Point3D( 0, 0, 0));
+ 		parkingLot4.setTexture(upTex);
+ 		Matrix3D p4LotT = parkingLot4.getLocalTranslation();
+ 		p4LotT.translate(0.0f, -0.5f, 0.0f);
+ 		parkingLot2.setLocalTranslation(p2LotT);
+ 		Matrix3D p4Scale = parkingLot4.getLocalScale();
+ 		p4Scale.scale(10f, 10f, 0);
+ 		parkingLot4.setLocalScale(p4Scale);
+ 		Matrix3D p4Rot = new Matrix3D();
+ 		p4Rot.rotateZ(90);
+ 		p4Rot.rotateY(-90);
+ 		parkingLot4.setLocalRotation(p4Rot);
+ 		
+ 		} catch (Exception e) 
+ 		{ 
+ 			e.printStackTrace(); 
+ 		} 
+ 	//	scene.addChild(parkingLotT); 
+ 		scene.addChild(parkingLot1);
+ 		scene.addChild(parkingLot2);
+ 		scene.addChild(parkingLot3);
+ 		scene.addChild(parkingLot4);
+ 	*/	 
 		addGameWorldObject(scene); 
  		 
  	} 
@@ -323,7 +388,7 @@ public class FightingGame extends BaseGame implements KeyListener{
 		      
 		      
 		      Matrix3D playerOneT = playerOne.getLocalTranslation();
-		      playerOneT.translate(30, 0, 50);
+		      playerOneT.translate(30, 10, 50);
 		      playerOne.setLocalTranslation(playerOneT);
 		      Matrix3D playerOneR = playerOne.getLocalRotation();
 		      playerOneR.rotateY(180.0);
@@ -340,15 +405,31 @@ public class FightingGame extends BaseGame implements KeyListener{
 		   } catch (Exception e11)
 		      {
 			   e11.printStackTrace();
-		      }
-	      
-	      camera1 = new JOGLCamera(renderer);
-	      camera1.setPerspectiveFrustum(60, 1, 1, 1000);
-	      camera1.setViewport(0.0, 1.0, 0.0, 1.0);
-	      
-	      createPlayerHUDs();
       }  		
-
+      
+      camera1 = new JOGLCamera(renderer);
+      camera1.setPerspectiveFrustum(60, 1, 1, 1000);
+      camera1.setViewport(0.0, 1.0, 0.0, 1.0);
+      
+      /*p2 = new Cube("PLAYER2");
+      Matrix3D p2MT = p2.getWorldTranslation();
+      Matrix3D p2MR = p2.getWorldRotation();
+      
+      p2MT.translate(50, 1, 0);
+      p2.setLocalTranslation(p2MT);
+      
+      p2MR.rotate(-90, new Vector3D(0, 1, 0));
+      p2.setLocalRotation(p2MR);
+      
+      p2.updateWorldBound();
+      addGameWorldObject(p2);
+      
+      camera2 = new JOGLCamera(renderer);
+      camera2.setPerspectiveFrustum(60, 2, 1, 1000);
+      camera2.setViewport(0.0, 1.0, 0.55, 1.0);*/
+      
+      createPlayerHUDs();
+   }
    
    private void createPlayerHUDs(){
       // Player 1 identity HUD
@@ -436,18 +517,9 @@ public class FightingGame extends BaseGame implements KeyListener{
       
       // adding objectloader
       try{
-
  
       
       createRing();
-
-      
-      // needs to fix the export for this object. doesn't look like objloader will take it. 
-   
-    //  fightingRingTriMesh = loader.loadModel("src/a3/kmap165Engine/external_models/fightingRing.obj");
-
-
-
    } catch (Exception e11)
       {
 	   e11.printStackTrace();
@@ -472,7 +544,7 @@ public class FightingGame extends BaseGame implements KeyListener{
       // physics
       powerUp = new Sphere();
       Matrix3D puT = powerUp.getLocalTranslation();
-      puT.translate(30, 50, 40);
+      puT.translate(30, 0, 40);
       powerUp.setLocalTranslation(puT);
       addGameWorldObject(powerUp);
       powerUp.updateGeometricState(1.0f, true);
@@ -546,7 +618,6 @@ public class FightingGame extends BaseGame implements KeyListener{
      // parkingLot.setLocalTranslation(camTranslation);
       //Player 1's crash events 
       if (tpt.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWTeapot == false){
-
          collidedWTeapot = true;
          numCrashes++;
          score1 += 100;
@@ -555,7 +626,6 @@ public class FightingGame extends BaseGame implements KeyListener{
          eventMgr.triggerEvent(newCrash);
       }
       if (cyl.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWCylinder == false){
-
          collidedWCylinder = true; 
          numCrashes++;
          score1 += 500;
@@ -564,7 +634,6 @@ public class FightingGame extends BaseGame implements KeyListener{
          eventMgr.triggerEvent(newCrash);
       }
       if (sph.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWPyramid == false){
-
          collidedWPyramid = true;
          numCrashes++;
          score1 += 250;
@@ -573,7 +642,6 @@ public class FightingGame extends BaseGame implements KeyListener{
          eventMgr.triggerEvent(newCrash);
       }
       if (jade.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWDiamond == false){
-
          collidedWDiamond = true; 
          numCrashes++;
          score1 += 1000;
@@ -834,7 +902,6 @@ public class FightingGame extends BaseGame implements KeyListener{
 	     
 	      addGameWorldObject(ringGroup1);
 	   }
-
    protected void render(){
       renderer.setCamera(camera1);
       super.render();
@@ -892,7 +959,6 @@ public class FightingGame extends BaseGame implements KeyListener{
    public Vector3D getPlayerPosition()
    {
 	  Vector3D position = playerOne.getLocalTranslation().getCol(3);
-
 	  
       return position;
  
@@ -956,8 +1022,8 @@ public class FightingGame extends BaseGame implements KeyListener{
    
    private TerrainBlock createTerBlock(AbstractHeightMap heightmap)
    {
-	   float heightscale = .02f;
-	   Vector3D terrainScale = new Vector3D(.5, heightscale, .5);
+	   float heightscale = .05f;
+	   Vector3D terrainScale = new Vector3D(1, heightscale, 1);
 	   
 	   int terrainsize = heightmap.getSize();
 	   
@@ -972,7 +1038,7 @@ public class FightingGame extends BaseGame implements KeyListener{
    {
 	   
 	   
-	   ImageBasedHeightMap myHeightMap = new ImageBasedHeightMap("src/a3/images/mountains512.jpg");
+	   ImageBasedHeightMap myHeightMap = new ImageBasedHeightMap("src/a3/images/testFloor.bmp");
 	   /*
 	   HillHeightMap myHeightMap = new HillHeightMap(129, 2000, 5.0f, 20.0f, (byte)2, 12345);
 	   myHeightMap.setHeightScale(0.1f);
@@ -1014,9 +1080,9 @@ private void createSagePhysicsWorld()
 	powerUpP  = physicsEngine.addSphereObject(physicsEngine.nextUID(), mass, powerUp.getWorldTransform().getValues(), 1.0f);
 	powerUpP.setBounciness(1.0f);
 	powerUp.setPhysicsObject(powerUpP);
-	
-	// terrain
-	float up[] = {-.05f, .95f, 0};
+   
+   // terrain
+	float up[] = {-1.0f, -.95f, 0f};
 	terrainP = physicsEngine.addStaticPlaneObject(physicsEngine.nextUID(), hillTerr.getWorldTransform().getValues(), up, 0.0f);
 	terrainP.setBounciness(1.0f);
 	hillTerr.setPhysicsObject(terrainP);
