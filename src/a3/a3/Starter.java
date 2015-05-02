@@ -11,7 +11,7 @@ public class Starter{
             InetAddress theAddr = InetAddress.getLocalHost();
             String ipAddr = theAddr.getHostAddress(); 
             FightingGame fg = new FightingGame(ipAddr, 8065);
-
+            System.out.println("ff");
             fg.start();
          }
          catch (IOException e){ 
