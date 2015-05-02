@@ -11,24 +11,32 @@ import sage.scene.SceneNode;
 import sage.scene.shape.*;
 import a3.kmap165Engine.network.*;
 import sage.terrain.*;
+import sage.scene.Model3DTriMesh;
+
 public class ForwardAction extends AbstractInputAction{ 
-   private SceneNode s;
+   private Model3DTriMesh s;
    private Matrix3D sM;
    private MyClient client;
    private TerrainBlock terrain;
-   public ForwardAction(SceneNode sn, TerrainBlock t, MyClient thisClient){ 
-      s = sn;
+   public ForwardAction(Model3DTriMesh n, TerrainBlock t, MyClient thisClient){ 
+      s = n;
       terrain = t;
       sM = s.getLocalTranslation();
       client = thisClient;
    }
    public void performAction(float time, Event e){
-      sM.translate(0,0,0.1f);
+      sM.translate(0,0,-0.1f);
       s.setLocalTranslation(sM);
-      s.updateWorldBound();
+
       updateVerticalPosition();
-      //client.sendMoveMessage(sM.getCol(3));
-    //  client.sendMoveMessage(s.getLocalTranslation());
+      
+      s.updateWorldBound();
+		s.updateLocalBound();
+		s.updateGeometricState((double) time, false);
+      
+     // s.getWorldBound().computeFromPoints(s.getVertexBuffer());
+      //System.out.println(client);
+      if(client != null) client.sendMoveMessage(sM.getCol(3));
    }
    private void updateVerticalPosition()
    {
@@ -38,6 +46,5 @@ public class ForwardAction extends AbstractInputAction{
 	   float tHeight = terrain.getHeight(x, z);
 	   float desiredHeight = tHeight + (float)terrain.getOrigin().getY() + 0.5f;
 	   s.getLocalTranslation().setElementAt(1, 3, desiredHeight);
-
    }
 }

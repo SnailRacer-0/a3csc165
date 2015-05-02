@@ -12,14 +12,15 @@ import sage.model.loader.OBJLoader;
 public class GhostAvatar extends TriMesh{
    private UUID ghostID;
    private Vector3D ghostPosition;
-   private Matrix3D ghostMatrix;
+   private Matrix3D ghostMatrix, newGhostMatrix, currentGhostMatrix;
    private boolean created = false;
    private MyClient theClient;
    private TriMesh theMesh;
    private OBJLoader objectLoader = new OBJLoader();
    public GhostAvatar(UUID ID, Vector3D position, MyClient client){
-	  theMesh = objectLoader.loadModel("src/a3/kmap165Engine/external_models/albertTestMesh.obj");
-	  
+	  theMesh = objectLoader.loadModel("./a3/kmap165Engine/external_models/albertTestMesh.obj");
+	  this.setVertexBuffer(theMesh.getVertexBuffer());
+     this.setIndexBuffer(theMesh.getIndexBuffer());
 	  /*Matrix3D theMeshT = theMesh.getLocalTranslation();
       theMeshT.translate(70, 0, 50);
       setLocalTranslation(theMeshT);*/
@@ -28,14 +29,13 @@ public class GhostAvatar extends TriMesh{
       theMeshS.scale(.3, 0.3, .3);
       setLocalScale(theMeshS);
       
-	  this.setVertexBuffer(theMesh.getVertexBuffer());
-      this.setIndexBuffer(theMesh.getIndexBuffer()); 
+	   
       ghostID = ID;
       ghostPosition = position;
       theClient = client;
       
       ghostMatrix = this.getLocalTranslation();
-      ghostMatrix.translate(ghostPosition.getX(), ghostPosition.getY(), ghostPosition.getZ());
+      ghostMatrix.translate(ghostPosition.getX() + 20.0, ghostPosition.getY(), ghostPosition.getZ() + 20.0);
       
       setLocalTranslation(ghostMatrix);
       
@@ -61,9 +61,17 @@ public class GhostAvatar extends TriMesh{
    }
    public void setGhostPosition(Vector3D gV){
       //ghostMatrix.setCol(3, gV);
-	   ghostMatrix.translate(gV.getX(), gV.getY(), gV.getZ()); 
-      setLocalTranslation(ghostMatrix);
+      //System.out.println(gV);
+      newGhostMatrix = new Matrix3D();
+      //currentGhostMatrix = ghostMatrix.getLocalTranslation();
+      
+      newGhostMatrix.translate(gV.getX(), gV.getY(), gV.getZ());
+	   //currentGhostMatrix.concatenate(newGhostMatrix);
+      //System.out.println(" 7778" + ghostMatrix); 
+      //setLocalTranslation(currentGhostMatrix);
+      setLocalTranslation(newGhostMatrix);
+      updateLocalBound();
       updateWorldBound();
-      if(theClient != null) theClient.sendMoveMessage(this.getLocalTranslation().getCol(3));
+      //if(theClient != null) theClient.sendMoveMessage(this.getLocalTranslation().getCol(3));
    }
 }

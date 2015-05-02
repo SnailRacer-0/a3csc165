@@ -11,13 +11,15 @@ import sage.scene.SceneNode;
 import sage.scene.shape.*;
 import a3.kmap165Engine.network.*;
 import sage.terrain.*;
+import sage.scene.Model3DTriMesh;
+
 public class LeftAction extends AbstractInputAction{ 
-   private SceneNode s;
+   private Model3DTriMesh s;
    private Matrix3D sM;
    private MyClient client;
    private TerrainBlock terrain;
-   public LeftAction(SceneNode sn, TerrainBlock t, MyClient thisClient){ 
-      s = sn;
+   public LeftAction(Model3DTriMesh n, TerrainBlock t, MyClient thisClient){ 
+      s = n;
       terrain = t;
       sM = s.getLocalTranslation();
       client = thisClient;
@@ -25,10 +27,16 @@ public class LeftAction extends AbstractInputAction{
    public void performAction(float time, Event e){
       sM.translate(-0.1f,0,0);
       s.setLocalTranslation(sM);
-      s.updateWorldBound();
+
       updateVerticalPosition();
-      //client.sendMoveMessage(sM.getCol(3));
-   //   client.sendMoveMessage(s.getLocalTranslation());
+      
+      s.updateWorldBound();
+		s.updateLocalBound();
+		s.updateGeometricState((double) time, false);
+      
+      //s.getWorldBound().computeFromPoints(s.getVertexBuffer());
+      
+      if(client != null) client.sendMoveMessage(sM.getCol(3));
    }
    private void updateVerticalPosition()
    {
