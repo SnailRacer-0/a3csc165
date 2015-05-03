@@ -1,0 +1,61 @@
+<scene formatVersion="1.0.1" previous_export_time="1430610027.657609" export_time="1430610264.613358" exported_by="Albert" >
+  <nodes >
+    <node name="bonestruc" >
+      <position z="0.073836" x="0.015645" y="16.632174" />
+      <rotation qy="0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+      <scale z="1.000000" x="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <node name="p1Mesh" >
+        <position z="-0.000000" x="0.000000" y="-23.826603" />
+        <rotation qy="0.000000" qx="0.707107" qz="-0.000000" qw="0.707107" />
+        <scale z="1.000000" x="1.000000" y="1.000000" />
+        <game >
+          <sensors />
+          <actuators />
+        </game>
+        <entity anisotropic_friction="False" inertia_tensor="0.4000000059604645" lock_trans_x="False" meshFile="p1Mesh.mesh" mass_radius="1.0" velocity_max="0.0" mass="1.0" physics_type="STATIC" lock_rot_y="False" name="p1Mesh" lock_rot_x="False" actor="False" velocity_min="0.0" ghost="False" friction_x="1.0" lock_rot_z="False" lock_trans_y="False" damping_trans="0.03999999910593033" friction_z="1.0" friction_y="1.0" lock_trans_z="False" damping_rot="0.10000000149011612" />
+      </node>
+    </node>
+    <node name="Lamp" >
+      <position z="-1.005454" x="4.076245" y="5.903862" />
+      <rotation qy="0.755880" qx="0.169076" qz="-0.272171" qw="0.570947" />
+      <scale z="1.000000" x="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <light type="point" name="Lamp" shadow="true" powerScale="1.0" >
+        <position z="-1.005454" x="4.076245" y="5.903862" />
+        <lightAttenuation constant="1.0" quadratic="0.0" linear="0.03333335240683057" range="5000" />
+        <colourDiffuse g="1.0" b="1.0" r="1.0" />
+        <colourSpecular g="1.0" b="1.0" r="1.0" />
+        <colourShadow g="1.0" b="1.0" r="1.0" />
+      </light>
+    </node>
+    <node name="Camera" >
+      <position z="6.507640" x="7.481132" y="41.652210" />
+      <rotation qy="0.038152" qx="0.655220" qz="-0.146199" qw="0.740173" />
+      <scale z="1.000000" x="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <camera projectionType="perspective" name="Camera" fov="0.5033799435163735" >
+        <clipping farPlaneDist="100.0" nearPlaneDist="0.10000000149011612" far="100.0" near="0.10000000149011612" />
+      </camera>
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="E:\downloads\tesst\materialMesh.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourDiffuse g="0.05087608844041824" b="0.05087608844041824" r="0.05087608844041824" />
+    <colourBackground g="0.05087608844041824" b="0.05087608844041824" r="0.05087608844041824" />
+    <colourAmbient g="0.0" b="0.0" r="0.0" />
+  </environment>
+</scene>

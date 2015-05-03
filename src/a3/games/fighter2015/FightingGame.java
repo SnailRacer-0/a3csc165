@@ -353,7 +353,7 @@ public class FightingGame extends BaseGame implements KeyListener{
 	   {
 		   model = loaderA.loadModel("src/a3/kmap165Engine/external_models/avatarOgre/p1Mesh.mesh", 
                                  "src/a3/kmap165Engine/external_models/avatarOgre/materialMesh.material", 
-                                 "src/a3/kmap165Engine/external_models/vatarOgre/p1Mesh.skeleton");
+                                 "src/a3/kmap165Engine/external_models/avatarOgre/p1Mesh.skeleton");
 		   model.updateGeometricState(0, true);
 		   java.util.Iterator<SceneNode> modelIterator = model.iterator();
 		   playerOne = (Model3DTriMesh) modelIterator.next();
